@@ -22,10 +22,11 @@ go get -u github.com/volcengine/cdp-openapi-sdk-golang
 package main
 
 import (
-	"encoding/json"
+	"context"
 	"fmt"
-	"net/url"
-	"github.com/volcengine/cdp-openapi-sdk-go"
+	cdpCli "github.com/volcengine/cdp-openapi-sdk-go"
+	"net/http"
+	"time"
 )
 
 func main() {
@@ -34,10 +35,10 @@ func main() {
 	basePath := "https://XXX/open_platform/openapi"
 	
 	httpCLient := http.Client{Timeout: 1 * time.Second}
-	Config := Configuration{AccessKeyId: testAk,
+	Config := cdpCli.Configuration{AccessKeyId: testAk,
 	    AccessKeySecret: testSk,
 		BasePath: basePath, HTTPClient: &httpCLient}
-	client, err := NewAPIClient(&Config)
+	client, err := cdpCli.NewAPIClient(&Config)
 	if err != nil {
 		fmt.Println("NewAPIClient err", err)
 		return
