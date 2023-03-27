@@ -15,7 +15,7 @@ Go 版本需要不低于1.15
 
 ## 获取与安装
 
-go get -u github.com/volcengine/cdp-openapi-sdk-golang
+go get -u github.com/volcengine/cdp-openapi-sdk-go
 
 ## 样例
 ```
