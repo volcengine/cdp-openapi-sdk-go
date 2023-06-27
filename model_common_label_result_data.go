@@ -22,10 +22,9 @@
  */
 package swagger
 
-type TagBasicInfo struct {
-	Id                int32  `json:"id,omitempty"`
-	Name              string `json:"name,omitempty"`
-	Status            string `json:"status,omitempty"`
-	LatestSuccessDate string `json:"LatestSuccessDate,omitempty"`
-	DataSourceId      int32  `json:"dataSourceId,omitempty"`
+type CommonLabelResultData struct {
+	// 状态码，0表示正常
+	Code int64            `json:"code,omitempty"`
+	Msg  string           `json:"msg,omitempty"`
+	Data *LabelResultData `json:"data,omitempty"`
 }

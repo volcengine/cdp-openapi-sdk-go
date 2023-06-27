@@ -22,10 +22,17 @@
  */
 package swagger
 
-type TagBasicInfo struct {
-	Id                int32  `json:"id,omitempty"`
-	Name              string `json:"name,omitempty"`
-	Status            string `json:"status,omitempty"`
-	LatestSuccessDate string `json:"LatestSuccessDate,omitempty"`
-	DataSourceId      int32  `json:"dataSourceId,omitempty"`
+type LabelResultData struct {
+	// 调度运行时间
+	ScheduleTime string `json:"scheduleTime,omitempty"`
+	// 标签累计覆盖人数（去重）
+	DistinctNumber int32 `json:"distinctNumber,omitempty"`
+	// 当前标签覆盖总人数占整个项目覆盖总人数比例 (distinctNumber/mautagDistinctNumber)*100%
+	Coverage string `json:"coverage,omitempty"`
+	// 标签枚举值统计列表
+	Statistics []LabelValueCount `json:"statistics,omitempty"`
+	// 查询服务耗时毫秒数-mau查询部分耗时(类型为mau时恒为0)
+	QueryMauCost int64 `json:"queryMauCost,omitempty"`
+	// 查询服务耗时毫秒数-查询部分耗时(包含mau查询的总耗时)
+	QueryDataCost int64 `json:"queryDataCost,omitempty"`
 }

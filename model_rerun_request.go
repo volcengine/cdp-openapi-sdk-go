@@ -22,10 +22,11 @@
  */
 package swagger
 
-type TagBasicInfo struct {
-	Id                int32  `json:"id,omitempty"`
-	Name              string `json:"name,omitempty"`
-	Status            string `json:"status,omitempty"`
-	LatestSuccessDate string `json:"LatestSuccessDate,omitempty"`
-	DataSourceId      int32  `json:"dataSourceId,omitempty"`
+type RerunRequest struct {
+	// 标签id
+	LabelId int64 `json:"labelId,omitempty"`
+	// 开始日期，格式YYYY-MM-DD
+	StartDate string `json:"startDate,omitempty"`
+	// 开始日期，格式YYYY-MM-DD
+	EndDate string `json:"endDate,omitempty"`
 }

@@ -1,4 +1,3 @@
-
 /*
  * Copyright 2022 ByteDance and/or its affiliates.
  *
@@ -25,12 +24,12 @@ package swagger
 
 import (
 	"context"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"strings"
-	"fmt"
 	"os"
+	"strings"
 )
 
 // Linger please
@@ -40,39 +39,38 @@ var (
 )
 
 type FileDateAssetApiService service
+
 /*
 FileDateAssetApiService 下载分群明细
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param xTenant
  * @param taskId
- * @param segId
- * @param file
+ * @param filePath
 @return *os.File
 */
-func (a *FileDateAssetApiService) DownloadFileDateAsset(ctx context.Context, xTenant string, taskId int32, segId int32, file string) (*os.File, *http.Response, error) {
+func (a *FileDateAssetApiService) DownloadFileDateAsset(ctx context.Context, xTenant string, taskId int32, filePath string) (*os.File, *http.Response, error) {
 	var (
-		localVarHttpMethod = strings.ToUpper("Get")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
+		localVarHttpMethod  = strings.ToUpper("Get")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
 		localVarReturnValue *os.File
 	)
 
 	// create path and map variables
 	localVarPath := a.client.cfg.Host + a.client.cfg.BasePath
 	localVarQueryParams := url.Values{}
-	localVarQueryParams.Add("taskId",fmt.Sprintf("%v", taskId))
+	localVarQueryParams.Add("taskId", fmt.Sprintf("%v", taskId))
 
 	localVarHeaderParams := make(map[string]string)
 
 	localVarFormParams := url.Values{}
-	localVarQueryParams.Add("Action","QueryOpenPlatformOpenApi")
-	localVarQueryParams.Add("Version","2022-12-16")
-	localVarQueryParams.Add("ApiAction","DownloadFileDateAsset")
-	localVarQueryParams.Add("ApiVersion","2023-02-10")
+	localVarQueryParams.Add("Action", "QueryOpenPlatformOpenApi")
+	localVarQueryParams.Add("Version", "2022-12-16")
+	localVarQueryParams.Add("ApiAction", "DownloadFileDateAsset")
+	localVarQueryParams.Add("ApiVersion", "2023-02-10")
 
-	localVarQueryParams.Add("segId", parameterToString(segId, ""))
-	localVarQueryParams.Add("file", parameterToString(file, ""))
+	localVarQueryParams.Add("filePath", parameterToString(filePath, ""))
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{}
 
@@ -122,7 +120,7 @@ RESP_TYPE_CHECK_END:
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header);
+		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header)
 		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
@@ -130,24 +128,25 @@ RESP_TYPE_CHECK_END:
 
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
 			var v *os.File
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header);
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header)
+			if err != nil {
+				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHttpResponse, newErr
 		}
 		return localVarReturnValue, localVarHttpResponse, newErr
 	}
 
 	return localVarReturnValue, localVarHttpResponse, nil
 }
+
 /*
 FileDateAssetApiService 获取分群明细任务列表
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -156,10 +155,10 @@ FileDateAssetApiService 获取分群明细任务列表
 */
 func (a *FileDateAssetApiService) GetFileDateAssetTaskList(ctx context.Context, xTenant string) (SeqFileDataTaskSimpleResult, *http.Response, error) {
 	var (
-		localVarHttpMethod = strings.ToUpper("Get")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
+		localVarHttpMethod  = strings.ToUpper("Get")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
 		localVarReturnValue SeqFileDataTaskSimpleResult
 	)
 
@@ -170,10 +169,10 @@ func (a *FileDateAssetApiService) GetFileDateAssetTaskList(ctx context.Context, 
 	localVarHeaderParams := make(map[string]string)
 
 	localVarFormParams := url.Values{}
-	localVarQueryParams.Add("Action","QueryOpenPlatformOpenApi")
-	localVarQueryParams.Add("Version","2022-12-16")
-	localVarQueryParams.Add("ApiAction","GetFileDateAssetTaskList")
-	localVarQueryParams.Add("ApiVersion","2023-02-10")
+	localVarQueryParams.Add("Action", "QueryOpenPlatformOpenApi")
+	localVarQueryParams.Add("Version", "2022-12-16")
+	localVarQueryParams.Add("ApiAction", "GetFileDateAssetTaskList")
+	localVarQueryParams.Add("ApiVersion", "2023-02-10")
 
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{}
@@ -224,7 +223,7 @@ RESP_TYPE_CHECK_END:
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header);
+		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header)
 		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
@@ -232,18 +231,18 @@ RESP_TYPE_CHECK_END:
 
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
 			var v SeqFileDataTaskSimpleResult
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header);
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header)
+			if err != nil {
+				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHttpResponse, newErr
 		}
 		return localVarReturnValue, localVarHttpResponse, newErr
 	}

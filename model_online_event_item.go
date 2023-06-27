@@ -22,10 +22,10 @@
  */
 package swagger
 
-type TagBasicInfo struct {
-	Id                int32  `json:"id,omitempty"`
-	Name              string `json:"name,omitempty"`
-	Status            string `json:"status,omitempty"`
-	LatestSuccessDate string `json:"LatestSuccessDate,omitempty"`
-	DataSourceId      int32  `json:"dataSourceId,omitempty"`
+type OnlineEventItem struct {
+	DatasourceId   int32   `json:"datasource_id,omitempty"`
+	EventIds       []int32 `json:"event_ids,omitempty"`
+	StartTime      string  `json:"start_time,omitempty"`
+	EndTime        string  `json:"end_time,omitempty"`
+	NeedProperties bool    `json:"need_properties,omitempty"`
 }

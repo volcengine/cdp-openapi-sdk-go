@@ -53,9 +53,9 @@ var (
 // APIClient manages communication with the CDP开放接口 API v2023-02-10
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
-	cfg    *Configuration
+	cfg        *Configuration
 	Credential Credential
-	common service // Reuse a single struct instead of allocating one for each service on the heap.
+	common     service // Reuse a single struct instead of allocating one for each service on the heap.
 
 	// API Services
 
@@ -70,6 +70,8 @@ type APIClient struct {
 	InsightApi *InsightApiService
 
 	LabelApi *LabelApiService
+
+	LineageApi *LineageApiService
 
 	OnlineApi *OnlineApiService
 
@@ -88,7 +90,7 @@ type service struct {
 
 // NewAPIClient creates a new API client. Requires a userAgent string describing your application.
 // optionally a custom http.Client to allow for advanced features such as caching.
-func NewAPIClient(cfg *Configuration) (*APIClient,error) {
+func NewAPIClient(cfg *Configuration) (*APIClient, error) {
 	if cfg.HTTPClient == nil {
 		cfg.HTTPClient = http.DefaultClient
 	}
@@ -100,8 +102,8 @@ func NewAPIClient(cfg *Configuration) (*APIClient,error) {
 	c := &APIClient{}
 	c.cfg = cfg
 	c.common.client = c
-	c.Credential = Credential{AccessKeyID: cfg.AccessKeyId,SecretAccessKey: cfg.AccessKeySecret,
-	Service:"openPlatform",Region:"cn"}
+	c.Credential = Credential{AccessKeyID: cfg.AccessKeyId, SecretAccessKey: cfg.AccessKeySecret,
+		Service: "openPlatform", Region: "cn"}
 
 	// API Services
 	c.DatasourceApi = (*DatasourceApiService)(&c.common)
@@ -110,6 +112,7 @@ func NewAPIClient(cfg *Configuration) (*APIClient,error) {
 	c.IdTypeApi = (*IdTypeApiService)(&c.common)
 	c.InsightApi = (*InsightApiService)(&c.common)
 	c.LabelApi = (*LabelApiService)(&c.common)
+	c.LineageApi = (*LineageApiService)(&c.common)
 	c.OnlineApi = (*OnlineApiService)(&c.common)
 	c.RealtimeRuleApi = (*RealtimeRuleApiService)(&c.common)
 	c.SegmentationApi = (*SegmentationApiService)(&c.common)
@@ -119,7 +122,7 @@ func NewAPIClient(cfg *Configuration) (*APIClient,error) {
 	return c, nil
 }
 
-func checkConfig(cfg *Configuration) error  {
+func checkConfig(cfg *Configuration) error {
 	if len(cfg.AccessKeyId) == 0 {
 		return errors.New("config AccessKeyId is empty")
 	}
@@ -372,53 +375,53 @@ func (c *APIClient) prepareRequest(
 }
 
 func (c *APIClient) decode(v interface{}, b []byte, header http.Header) (err error) {
-		contentType := header.Get("Content-Type")
-		if strings.Contains(contentType, "application/xml") {
-			if err = xml.Unmarshal(b, v); err != nil {
-				return err
-			}
-			return nil
-		} else if strings.Contains(contentType, "application/json") {
-			if err = json.Unmarshal(b, v); err != nil {
-				return err
-			}
-			return nil
-		} else {
-			switch p := v.(type) {
-			case **os.File:
-				contentDisposition := header.Get("Content-Disposition")
-				filenameRegex := regexp.MustCompile("filename=['\"]?([^'\"\\s]+)['\"]?")
-				filenames := filenameRegex.FindStringSubmatch(contentDisposition)
-				var filename string
-				if len(filenames) > 0 {
-					filename = filenames[1]
-					lastIdx := strings.LastIndex(filename, ".")
-					if lastIdx == -1 {
-						filename = filename + "-*"
-					} else {
-						prefix := filename[:lastIdx]
-						suffix := filename[lastIdx:]
-						filename = prefix + "-*" + suffix
-					}
-				} else {
-					filename = "downloadfile-*"
-				}
-
-				file, err := os.CreateTemp("", filename)
-				if err != nil {
-					return err
-				}
-				*p = file
-				written, err := io.Copy(file, bytes.NewReader(b))
-				if err != nil {
-					return err
-				}
-				if written != int64(len(b)) {
-					return fmt.Errorf("download file EOF reach, bodySize:%v, written:%v", len(b), written)
-				}
-				return nil
-			}
+	contentType := header.Get("Content-Type")
+	if strings.Contains(contentType, "application/xml") {
+		if err = xml.Unmarshal(b, v); err != nil {
+			return err
 		}
+		return nil
+	} else if strings.Contains(contentType, "application/json") {
+		if err = json.Unmarshal(b, v); err != nil {
+			return err
+		}
+		return nil
+	} else {
+		switch p := v.(type) {
+		case **os.File:
+			contentDisposition := header.Get("Content-Disposition")
+			filenameRegex := regexp.MustCompile("filename=['\"]?([^'\"\\s]+)['\"]?")
+			filenames := filenameRegex.FindStringSubmatch(contentDisposition)
+			var filename string
+			if len(filenames) > 0 {
+				filename = filenames[1]
+				lastIdx := strings.LastIndex(filename, ".")
+				if lastIdx == -1 {
+					filename = filename + "-*"
+				} else {
+					prefix := filename[:lastIdx]
+					suffix := filename[lastIdx:]
+					filename = prefix + "-*" + suffix
+				}
+			} else {
+				filename = "downloadfile-*"
+			}
+
+			file, err := os.CreateTemp("", filename)
+			if err != nil {
+				return err
+			}
+			*p = file
+			written, err := io.Copy(file, bytes.NewReader(b))
+			if err != nil {
+				return err
+			}
+			if written != int64(len(b)) {
+				return fmt.Errorf("download file EOF reach, bodySize:%v, written:%v", len(b), written)
+			}
+			return nil
+		}
+	}
 	return errors.New("undefined response type")
 }
 

@@ -22,10 +22,10 @@
  */
 package swagger
 
-type TagBasicInfo struct {
-	Id                int32  `json:"id,omitempty"`
-	Name              string `json:"name,omitempty"`
-	Status            string `json:"status,omitempty"`
-	LatestSuccessDate string `json:"LatestSuccessDate,omitempty"`
-	DataSourceId      int32  `json:"dataSourceId,omitempty"`
+type NodeLineage struct {
+	Id         int64         `json:"id,omitempty"`
+	NativeId   int64         `json:"nativeId,omitempty"`
+	BizType    string        `json:"bizType,omitempty"`
+	InDegrees  []NodeLineage `json:"inDegrees,omitempty"`
+	OutDegrees []NodeLineage `json:"outDegrees,omitempty"`
 }

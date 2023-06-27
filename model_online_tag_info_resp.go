@@ -23,9 +23,9 @@
 package swagger
 
 type OnlineTagInfoResp struct {
-	// 返回的标签/属性信息
-	Items []TagBasicInfo `json:"items,omitempty"`
-	Page int32 `json:"page,omitempty"`
-	PageSize int32 `json:"pageSize,omitempty"`
-	Total int32 `json:"total,omitempty"`
+	// 返回的标签/属性/行为事件/明细信息
+	Items    []TagBasicInfo `json:"items,omitempty"`
+	Page     int32          `json:"page,omitempty"`
+	PageSize int32          `json:"pageSize,omitempty"`
+	Total    int32          `json:"total,omitempty"`
 }
