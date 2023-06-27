@@ -22,10 +22,15 @@
  */
 package swagger
 
-type TagBasicInfo struct {
-	Id                int32  `json:"id,omitempty"`
-	Name              string `json:"name,omitempty"`
-	Status            string `json:"status,omitempty"`
-	LatestSuccessDate string `json:"LatestSuccessDate,omitempty"`
-	DataSourceId      int32  `json:"dataSourceId,omitempty"`
+type LabelValueCount struct {
+	// 当前标签枚举值覆盖人数
+	Count int32 `json:"count,omitempty"`
+	// 当前标签枚举值原始值
+	OriginValue *interface{} `json:"originValue,omitempty"`
+	// 当前标签枚举值映射值，如果未做映射则等于原始值
+	MappingValue string `json:"mappingValue,omitempty"`
+	// 当前标签枚举值映射值覆盖人数占当前标签总覆盖人数的比例
+	TagCoverage string `json:"tagCoverage,omitempty"`
+	// 当前标签枚举值映射值覆盖人数占当前项目总覆盖人数的比例
+	TotalCoverage string `json:"totalCoverage,omitempty"`
 }

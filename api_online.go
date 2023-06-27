@@ -1,4 +1,3 @@
-
 /*
  * Copyright 2022 ByteDance and/or its affiliates.
  *
@@ -25,12 +24,12 @@ package swagger
 
 import (
 	"context"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"strings"
-	"fmt"
 	"os"
+	"strings"
 )
 
 // Linger please
@@ -40,6 +39,7 @@ var (
 )
 
 type OnlineApiService service
+
 /*
 OnlineApiService 判断是否命中实时规则,高速接口
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -49,25 +49,25 @@ OnlineApiService 判断是否命中实时规则,高速接口
 */
 func (a *OnlineApiService) CheckHitRealtimeRule(ctx context.Context, body CheckRealtimeRuleRequest, tenantCode string) (CheckRealtimeRuleResponse, *http.Response, error) {
 	var (
-		localVarHttpMethod = strings.ToUpper("Post")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
+		localVarHttpMethod  = strings.ToUpper("Post")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
 		localVarReturnValue CheckRealtimeRuleResponse
 	)
 
 	// create path and map variables
 	localVarPath := a.client.cfg.Host + a.client.cfg.BasePath
 	localVarQueryParams := url.Values{}
-	localVarQueryParams.Add("tenantCode",fmt.Sprintf("%v", tenantCode))
+	localVarQueryParams.Add("tenantCode", fmt.Sprintf("%v", tenantCode))
 
 	localVarHeaderParams := make(map[string]string)
 
 	localVarFormParams := url.Values{}
-	localVarQueryParams.Add("Action","QueryOpenPlatformOpenApi")
-	localVarQueryParams.Add("Version","2022-12-16")
-	localVarQueryParams.Add("ApiAction","CheckHitRealtimeRule")
-	localVarQueryParams.Add("ApiVersion","2023-02-10")
+	localVarQueryParams.Add("Action", "QueryOpenPlatformOpenApi")
+	localVarQueryParams.Add("Version", "2022-12-16")
+	localVarQueryParams.Add("ApiAction", "CheckHitRealtimeRule")
+	localVarQueryParams.Add("ApiVersion", "2023-02-10")
 
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{"application/json"}
@@ -119,7 +119,7 @@ RESP_TYPE_CHECK_END:
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header);
+		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header)
 		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
@@ -127,34 +127,35 @@ RESP_TYPE_CHECK_END:
 
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
 			var v CheckRealtimeRuleResponse
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header);
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header)
+			if err != nil {
+				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHttpResponse, newErr
 		}
 		if localVarHttpResponse.StatusCode == 400 {
 			var v string
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header);
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header)
+			if err != nil {
+				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHttpResponse, newErr
 		}
 		return localVarReturnValue, localVarHttpResponse, newErr
 	}
 
 	return localVarReturnValue, localVarHttpResponse, nil
 }
+
 /*
 OnlineApiService idmapping映射,高速接口
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -163,10 +164,10 @@ OnlineApiService idmapping映射,高速接口
 */
 func (a *OnlineApiService) GetIdMapping(ctx context.Context, body IdmReq) (IdmResp, *http.Response, error) {
 	var (
-		localVarHttpMethod = strings.ToUpper("Post")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
+		localVarHttpMethod  = strings.ToUpper("Post")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
 		localVarReturnValue IdmResp
 	)
 
@@ -177,10 +178,10 @@ func (a *OnlineApiService) GetIdMapping(ctx context.Context, body IdmReq) (IdmRe
 	localVarHeaderParams := make(map[string]string)
 
 	localVarFormParams := url.Values{}
-	localVarQueryParams.Add("Action","QueryOpenPlatformOpenApi")
-	localVarQueryParams.Add("Version","2022-12-16")
-	localVarQueryParams.Add("ApiAction","GetIdMapping")
-	localVarQueryParams.Add("ApiVersion","2023-02-10")
+	localVarQueryParams.Add("Action", "QueryOpenPlatformOpenApi")
+	localVarQueryParams.Add("Version", "2022-12-16")
+	localVarQueryParams.Add("ApiAction", "GetIdMapping")
+	localVarQueryParams.Add("ApiVersion", "2023-02-10")
 
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{"application/json"}
@@ -232,7 +233,7 @@ RESP_TYPE_CHECK_END:
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header);
+		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header)
 		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
@@ -240,34 +241,149 @@ RESP_TYPE_CHECK_END:
 
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
 			var v IdmResp
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header);
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header)
+			if err != nil {
+				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHttpResponse, newErr
 		}
 		if localVarHttpResponse.StatusCode == 400 {
 			var v string
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header);
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header)
+			if err != nil {
+				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHttpResponse, newErr
 		}
 		return localVarReturnValue, localVarHttpResponse, newErr
 	}
 
 	return localVarReturnValue, localVarHttpResponse, nil
 }
+
+/*
+OnlineApiService 查询用户的行为和明细
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param body
+@return OnlineGetUserDetailAndEventResp
+*/
+func (a *OnlineApiService) GetUserDetailAndEvent(ctx context.Context, body OnlineGetUserDetailAndEventRequest) (OnlineGetUserDetailAndEventResp, *http.Response, error) {
+	var (
+		localVarHttpMethod  = strings.ToUpper("Post")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
+		localVarReturnValue OnlineGetUserDetailAndEventResp
+	)
+
+	// create path and map variables
+	localVarPath := a.client.cfg.Host + a.client.cfg.BasePath
+	localVarQueryParams := url.Values{}
+
+	localVarHeaderParams := make(map[string]string)
+
+	localVarFormParams := url.Values{}
+	localVarQueryParams.Add("Action", "QueryOpenPlatformOpenApi")
+	localVarQueryParams.Add("Version", "2022-12-16")
+	localVarQueryParams.Add("ApiAction", "GetUserDetailAndEvent")
+	localVarQueryParams.Add("ApiVersion", "2023-02-10")
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Accept header
+	localVarHttpHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
+	if localVarHttpHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
+	}
+	// body params
+	localVarPostBody = &body
+	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHttpResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return localVarReturnValue, localVarHttpResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
+	localVarHttpResponse.Body.Close()
+	if err != nil {
+		return localVarReturnValue, localVarHttpResponse, err
+	}
+
+	if len(localVarHttpHeaderAccepts) > 0 {
+		respType := localVarHttpResponse.Header.Values("Content-Type")
+		for _, respType := range respType {
+			for _, accept := range localVarHttpHeaderAccepts {
+				if respType == accept {
+					goto RESP_TYPE_CHECK_END
+				}
+			}
+		}
+		return localVarReturnValue, localVarHttpResponse, fmt.Errorf("Content-Type %v not accept, body: \"%v\"", respType, string(localVarBody))
+	}
+RESP_TYPE_CHECK_END:
+
+	if localVarHttpResponse.StatusCode < 300 {
+		// If we succeed, return the data, otherwise pass on to decode error.
+		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header)
+		if err == nil {
+			return localVarReturnValue, localVarHttpResponse, err
+		}
+	}
+
+	if localVarHttpResponse.StatusCode >= 300 {
+		newErr := GenericSwaggerError{
+			body:  localVarBody,
+			error: localVarHttpResponse.Status,
+		}
+		if localVarHttpResponse.StatusCode == 200 {
+			var v OnlineGetUserDetailAndEventResp
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header)
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHttpResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHttpResponse, newErr
+		}
+		if localVarHttpResponse.StatusCode == 0 {
+			var v OnlineGetUserDetailAndEventResp
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header)
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHttpResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHttpResponse, newErr
+		}
+		return localVarReturnValue, localVarHttpResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHttpResponse, nil
+}
+
 /*
 OnlineApiService 查询标签和属性
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -276,10 +392,10 @@ OnlineApiService 查询标签和属性
 */
 func (a *OnlineApiService) GetUserProfileWithPrivacy(ctx context.Context, body OnlineGetUserProfileRequest) (OnlineUserProfileRespWithPrivacy, *http.Response, error) {
 	var (
-		localVarHttpMethod = strings.ToUpper("Post")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
+		localVarHttpMethod  = strings.ToUpper("Post")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
 		localVarReturnValue OnlineUserProfileRespWithPrivacy
 	)
 
@@ -290,10 +406,10 @@ func (a *OnlineApiService) GetUserProfileWithPrivacy(ctx context.Context, body O
 	localVarHeaderParams := make(map[string]string)
 
 	localVarFormParams := url.Values{}
-	localVarQueryParams.Add("Action","QueryOpenPlatformOpenApi")
-	localVarQueryParams.Add("Version","2022-12-16")
-	localVarQueryParams.Add("ApiAction","GetUserProfileWithPrivacy")
-	localVarQueryParams.Add("ApiVersion","2023-02-10")
+	localVarQueryParams.Add("Action", "QueryOpenPlatformOpenApi")
+	localVarQueryParams.Add("Version", "2022-12-16")
+	localVarQueryParams.Add("ApiAction", "GetUserProfileWithPrivacy")
+	localVarQueryParams.Add("ApiVersion", "2023-02-10")
 
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{"application/json"}
@@ -345,7 +461,7 @@ RESP_TYPE_CHECK_END:
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header);
+		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header)
 		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
@@ -353,24 +469,139 @@ RESP_TYPE_CHECK_END:
 
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
 			var v OnlineUserProfileRespWithPrivacy
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header);
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header)
+			if err != nil {
+				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHttpResponse, newErr
 		}
 		return localVarReturnValue, localVarHttpResponse, newErr
 	}
 
 	return localVarReturnValue, localVarHttpResponse, nil
 }
+
+/*
+OnlineApiService 查询用户是否命中分群v2
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param body
+@return OnlineGetUserSegmentResp
+*/
+func (a *OnlineApiService) GetUserSegmentV2(ctx context.Context, body OnlineGetUserSegmentRequest) (OnlineGetUserSegmentResp, *http.Response, error) {
+	var (
+		localVarHttpMethod  = strings.ToUpper("Post")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
+		localVarReturnValue OnlineGetUserSegmentResp
+	)
+
+	// create path and map variables
+	localVarPath := a.client.cfg.Host + a.client.cfg.BasePath
+	localVarQueryParams := url.Values{}
+
+	localVarHeaderParams := make(map[string]string)
+
+	localVarFormParams := url.Values{}
+	localVarQueryParams.Add("Action", "QueryOpenPlatformOpenApi")
+	localVarQueryParams.Add("Version", "2022-12-16")
+	localVarQueryParams.Add("ApiAction", "GetUserSegmentV2")
+	localVarQueryParams.Add("ApiVersion", "2023-02-10")
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Accept header
+	localVarHttpHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
+	if localVarHttpHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
+	}
+	// body params
+	localVarPostBody = &body
+	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHttpResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return localVarReturnValue, localVarHttpResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
+	localVarHttpResponse.Body.Close()
+	if err != nil {
+		return localVarReturnValue, localVarHttpResponse, err
+	}
+
+	if len(localVarHttpHeaderAccepts) > 0 {
+		respType := localVarHttpResponse.Header.Values("Content-Type")
+		for _, respType := range respType {
+			for _, accept := range localVarHttpHeaderAccepts {
+				if respType == accept {
+					goto RESP_TYPE_CHECK_END
+				}
+			}
+		}
+		return localVarReturnValue, localVarHttpResponse, fmt.Errorf("Content-Type %v not accept, body: \"%v\"", respType, string(localVarBody))
+	}
+RESP_TYPE_CHECK_END:
+
+	if localVarHttpResponse.StatusCode < 300 {
+		// If we succeed, return the data, otherwise pass on to decode error.
+		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header)
+		if err == nil {
+			return localVarReturnValue, localVarHttpResponse, err
+		}
+	}
+
+	if localVarHttpResponse.StatusCode >= 300 {
+		newErr := GenericSwaggerError{
+			body:  localVarBody,
+			error: localVarHttpResponse.Status,
+		}
+		if localVarHttpResponse.StatusCode == 200 {
+			var v OnlineGetUserSegmentResp
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header)
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHttpResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHttpResponse, newErr
+		}
+		if localVarHttpResponse.StatusCode == 0 {
+			var v OnlineGetUserSegmentResp
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header)
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHttpResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHttpResponse, newErr
+		}
+		return localVarReturnValue, localVarHttpResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHttpResponse, nil
+}
+
 /*
 OnlineApiService 查询用户是否命中人群,高速接口
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -381,25 +612,25 @@ OnlineApiService 查询用户是否命中人群,高速接口
 */
 func (a *OnlineApiService) QueryUserSeg(ctx context.Context, id string, segIds string, xTenant int64) (ByteDanceSeqResponseString, *http.Response, error) {
 	var (
-		localVarHttpMethod = strings.ToUpper("Get")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
+		localVarHttpMethod  = strings.ToUpper("Get")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
 		localVarReturnValue ByteDanceSeqResponseString
 	)
 
 	// create path and map variables
 	localVarPath := a.client.cfg.Host + a.client.cfg.BasePath
 	localVarQueryParams := url.Values{}
-	localVarQueryParams.Add("id",fmt.Sprintf("%v", id))
+	localVarQueryParams.Add("id", fmt.Sprintf("%v", id))
 
 	localVarHeaderParams := make(map[string]string)
 
 	localVarFormParams := url.Values{}
-	localVarQueryParams.Add("Action","QueryOpenPlatformOpenApi")
-	localVarQueryParams.Add("Version","2022-12-16")
-	localVarQueryParams.Add("ApiAction","QueryUserSeg")
-	localVarQueryParams.Add("ApiVersion","2023-02-10")
+	localVarQueryParams.Add("Action", "QueryOpenPlatformOpenApi")
+	localVarQueryParams.Add("Version", "2022-12-16")
+	localVarQueryParams.Add("ApiAction", "QueryUserSeg")
+	localVarQueryParams.Add("ApiVersion", "2023-02-10")
 
 	localVarQueryParams.Add("segIds", parameterToString(segIds, ""))
 	// to determine the Content-Type header
@@ -451,7 +682,7 @@ RESP_TYPE_CHECK_END:
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header);
+		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header)
 		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
@@ -459,28 +690,28 @@ RESP_TYPE_CHECK_END:
 
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
 			var v ByteDanceSeqResponseString
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header);
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header)
+			if err != nil {
+				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHttpResponse, newErr
 		}
 		if localVarHttpResponse.StatusCode == 400 {
 			var v string
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header);
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header)
+			if err != nil {
+				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHttpResponse, newErr
 		}
 		return localVarReturnValue, localVarHttpResponse, newErr
 	}

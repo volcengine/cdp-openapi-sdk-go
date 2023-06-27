@@ -1,4 +1,3 @@
-
 /*
  * Copyright 2022 ByteDance and/or its affiliates.
  *
@@ -25,13 +24,13 @@ package swagger
 
 import (
 	"context"
+	"fmt"
+	"github.com/antihax/optional"
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"strings"
-	"fmt"
 	"os"
-	"github.com/antihax/optional"
+	"strings"
 )
 
 // Linger please
@@ -41,6 +40,7 @@ var (
 )
 
 type SegmentationApiService service
+
 /*
 SegmentationApiService 分群ID文件下载
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -48,36 +48,36 @@ SegmentationApiService 分群ID文件下载
  * @param segId
  * @param formatType 文件格式，GZ, TXT, CSV 可选
  * @param optional nil or *SegmentationApiDownloadSegFileOpts - Optional Parameters:
-     * @param "NeedEncrypt" (optional.Bool) - 
+     * @param "NeedEncrypt" (optional.Bool) -
 @return *os.File
 */
 
 type SegmentationApiDownloadSegFileOpts struct {
-    NeedEncrypt optional.Bool
+	NeedEncrypt optional.Bool
 }
 
 func (a *SegmentationApiService) DownloadSegFile(ctx context.Context, tenantId int32, segId int32, formatType string, localVarOptionals *SegmentationApiDownloadSegFileOpts) (*os.File, *http.Response, error) {
 	var (
-		localVarHttpMethod = strings.ToUpper("Get")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
+		localVarHttpMethod  = strings.ToUpper("Get")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
 		localVarReturnValue *os.File
 	)
 
 	// create path and map variables
 	localVarPath := a.client.cfg.Host + a.client.cfg.BasePath
 	localVarQueryParams := url.Values{}
-	localVarQueryParams.Add("tenantId",fmt.Sprintf("%v", tenantId))
-	localVarQueryParams.Add("segId",fmt.Sprintf("%v", segId))
+	localVarQueryParams.Add("tenantId", fmt.Sprintf("%v", tenantId))
+	localVarQueryParams.Add("segId", fmt.Sprintf("%v", segId))
 
 	localVarHeaderParams := make(map[string]string)
 
 	localVarFormParams := url.Values{}
-	localVarQueryParams.Add("Action","QueryOpenPlatformOpenApi")
-	localVarQueryParams.Add("Version","2022-12-16")
-	localVarQueryParams.Add("ApiAction","DownloadSegFile")
-	localVarQueryParams.Add("ApiVersion","2023-02-10")
+	localVarQueryParams.Add("Action", "QueryOpenPlatformOpenApi")
+	localVarQueryParams.Add("Version", "2022-12-16")
+	localVarQueryParams.Add("ApiAction", "DownloadSegFile")
+	localVarQueryParams.Add("ApiVersion", "2023-02-10")
 
 	localVarQueryParams.Add("formatType", parameterToString(formatType, ""))
 	if localVarOptionals != nil && localVarOptionals.NeedEncrypt.IsSet() {
@@ -131,7 +131,7 @@ RESP_TYPE_CHECK_END:
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header);
+		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header)
 		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
@@ -139,24 +139,25 @@ RESP_TYPE_CHECK_END:
 
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
 			var v *os.File
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header);
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header)
+			if err != nil {
+				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHttpResponse, newErr
 		}
 		return localVarReturnValue, localVarHttpResponse, newErr
 	}
 
 	return localVarReturnValue, localVarHttpResponse, nil
 }
+
 /*
 SegmentationApiService 创建上传分群
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -166,25 +167,25 @@ SegmentationApiService 创建上传分群
 */
 func (a *SegmentationApiService) LegacyCreateUploadSegment(ctx context.Context, body LegacyUploadedSegCreateRequest, tenantId int32) (ByteDanceResponseRecordSegShardInfoResp, *http.Response, error) {
 	var (
-		localVarHttpMethod = strings.ToUpper("Post")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
+		localVarHttpMethod  = strings.ToUpper("Post")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
 		localVarReturnValue ByteDanceResponseRecordSegShardInfoResp
 	)
 
 	// create path and map variables
 	localVarPath := a.client.cfg.Host + a.client.cfg.BasePath
 	localVarQueryParams := url.Values{}
-	localVarQueryParams.Add("tenantId",fmt.Sprintf("%v", tenantId))
+	localVarQueryParams.Add("tenantId", fmt.Sprintf("%v", tenantId))
 
 	localVarHeaderParams := make(map[string]string)
 
 	localVarFormParams := url.Values{}
-	localVarQueryParams.Add("Action","QueryOpenPlatformOpenApi")
-	localVarQueryParams.Add("Version","2022-12-16")
-	localVarQueryParams.Add("ApiAction","LegacyCreateUploadSegment")
-	localVarQueryParams.Add("ApiVersion","2023-02-10")
+	localVarQueryParams.Add("Action", "QueryOpenPlatformOpenApi")
+	localVarQueryParams.Add("Version", "2022-12-16")
+	localVarQueryParams.Add("ApiAction", "LegacyCreateUploadSegment")
+	localVarQueryParams.Add("ApiVersion", "2023-02-10")
 
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{"application/json"}
@@ -236,7 +237,7 @@ RESP_TYPE_CHECK_END:
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header);
+		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header)
 		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
@@ -244,24 +245,25 @@ RESP_TYPE_CHECK_END:
 
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
 			var v ByteDanceResponseRecordSegShardInfoResp
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header);
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header)
+			if err != nil {
+				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHttpResponse, newErr
 		}
 		return localVarReturnValue, localVarHttpResponse, newErr
 	}
 
 	return localVarReturnValue, localVarHttpResponse, nil
 }
+
 /*
 SegmentationApiService 分群详情
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -271,26 +273,26 @@ SegmentationApiService 分群详情
 */
 func (a *SegmentationApiService) LegacyGetSegment(ctx context.Context, tenantId int32, segId int32) (ByteDanceResponseSegmentationResp, *http.Response, error) {
 	var (
-		localVarHttpMethod = strings.ToUpper("Get")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
+		localVarHttpMethod  = strings.ToUpper("Get")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
 		localVarReturnValue ByteDanceResponseSegmentationResp
 	)
 
 	// create path and map variables
 	localVarPath := a.client.cfg.Host + a.client.cfg.BasePath
 	localVarQueryParams := url.Values{}
-	localVarQueryParams.Add("tenantId",fmt.Sprintf("%v", tenantId))
-	localVarQueryParams.Add("segId",fmt.Sprintf("%v", segId))
+	localVarQueryParams.Add("tenantId", fmt.Sprintf("%v", tenantId))
+	localVarQueryParams.Add("segId", fmt.Sprintf("%v", segId))
 
 	localVarHeaderParams := make(map[string]string)
 
 	localVarFormParams := url.Values{}
-	localVarQueryParams.Add("Action","QueryOpenPlatformOpenApi")
-	localVarQueryParams.Add("Version","2022-12-16")
-	localVarQueryParams.Add("ApiAction","LegacyGetSegment")
-	localVarQueryParams.Add("ApiVersion","2023-02-10")
+	localVarQueryParams.Add("Action", "QueryOpenPlatformOpenApi")
+	localVarQueryParams.Add("Version", "2022-12-16")
+	localVarQueryParams.Add("ApiAction", "LegacyGetSegment")
+	localVarQueryParams.Add("ApiVersion", "2023-02-10")
 
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{}
@@ -340,7 +342,7 @@ RESP_TYPE_CHECK_END:
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header);
+		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header)
 		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
@@ -348,24 +350,25 @@ RESP_TYPE_CHECK_END:
 
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
 			var v ByteDanceResponseSegmentationResp
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header);
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header)
+			if err != nil {
+				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHttpResponse, newErr
 		}
 		return localVarReturnValue, localVarHttpResponse, newErr
 	}
 
 	return localVarReturnValue, localVarHttpResponse, nil
 }
+
 /*
 SegmentationApiService 分群列表查看，分页
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -385,39 +388,39 @@ SegmentationApiService 分群列表查看，分页
 */
 
 type SegmentationApiLegacyGetSegmentListOpts struct {
-    Current optional.Int32
-    PageSize optional.Int32
-    Keyword optional.String
-    IsSelfSee optional.Bool
-    IsOnlySourceReady optional.Bool
-    IdType optional.String
-    SegTypes optional.String
-    SourcePlatform optional.String
-    IsAbaseAvailable optional.Bool
-    IsAbaseEnabled optional.Bool
+	Current           optional.Int32
+	PageSize          optional.Int32
+	Keyword           optional.String
+	IsSelfSee         optional.Bool
+	IsOnlySourceReady optional.Bool
+	IdType            optional.String
+	SegTypes          optional.String
+	SourcePlatform    optional.String
+	IsAbaseAvailable  optional.Bool
+	IsAbaseEnabled    optional.Bool
 }
 
 func (a *SegmentationApiService) LegacyGetSegmentList(ctx context.Context, tenantId int32, localVarOptionals *SegmentationApiLegacyGetSegmentListOpts) (ByteDanceResponseSegmentationListResp, *http.Response, error) {
 	var (
-		localVarHttpMethod = strings.ToUpper("Get")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
+		localVarHttpMethod  = strings.ToUpper("Get")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
 		localVarReturnValue ByteDanceResponseSegmentationListResp
 	)
 
 	// create path and map variables
 	localVarPath := a.client.cfg.Host + a.client.cfg.BasePath
 	localVarQueryParams := url.Values{}
-	localVarQueryParams.Add("tenantId",fmt.Sprintf("%v", tenantId))
+	localVarQueryParams.Add("tenantId", fmt.Sprintf("%v", tenantId))
 
 	localVarHeaderParams := make(map[string]string)
 
 	localVarFormParams := url.Values{}
-	localVarQueryParams.Add("Action","QueryOpenPlatformOpenApi")
-	localVarQueryParams.Add("Version","2022-12-16")
-	localVarQueryParams.Add("ApiAction","LegacyGetSegmentList")
-	localVarQueryParams.Add("ApiVersion","2023-02-10")
+	localVarQueryParams.Add("Action", "QueryOpenPlatformOpenApi")
+	localVarQueryParams.Add("Version", "2022-12-16")
+	localVarQueryParams.Add("ApiAction", "LegacyGetSegmentList")
+	localVarQueryParams.Add("ApiVersion", "2023-02-10")
 
 	if localVarOptionals != nil && localVarOptionals.Current.IsSet() {
 		localVarQueryParams.Add("current", parameterToString(localVarOptionals.Current.Value(), ""))
@@ -497,7 +500,7 @@ RESP_TYPE_CHECK_END:
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header);
+		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header)
 		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
@@ -505,24 +508,134 @@ RESP_TYPE_CHECK_END:
 
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
 			var v ByteDanceResponseSegmentationListResp
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header);
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header)
+			if err != nil {
+				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHttpResponse, newErr
 		}
 		return localVarReturnValue, localVarHttpResponse, newErr
 	}
 
 	return localVarReturnValue, localVarHttpResponse, nil
 }
+
+/*
+SegmentationApiService 分群在线服务开启/关闭
+开启/关闭单个分群的在线服务
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param body
+ * @param tenantId
+ * @param segId
+@return ByteDanceResponseSegmentationOnlineServiceEnableResp
+*/
+func (a *SegmentationApiService) SegmentOnlineServiceEnable(ctx context.Context, body ByteDanceResponseSegmentationOnlineServiceEnableReq, tenantId int32, segId int32) (ByteDanceResponseSegmentationOnlineServiceEnableResp, *http.Response, error) {
+	var (
+		localVarHttpMethod  = strings.ToUpper("Patch")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
+		localVarReturnValue ByteDanceResponseSegmentationOnlineServiceEnableResp
+	)
+
+	// create path and map variables
+	localVarPath := a.client.cfg.Host + a.client.cfg.BasePath
+	localVarQueryParams := url.Values{}
+	localVarQueryParams.Add("tenantId", fmt.Sprintf("%v", tenantId))
+	localVarQueryParams.Add("segId", fmt.Sprintf("%v", segId))
+
+	localVarHeaderParams := make(map[string]string)
+
+	localVarFormParams := url.Values{}
+	localVarQueryParams.Add("Action", "QueryOpenPlatformOpenApi")
+	localVarQueryParams.Add("Version", "2022-12-16")
+	localVarQueryParams.Add("ApiAction", "SegmentOnlineServiceEnable")
+	localVarQueryParams.Add("ApiVersion", "2023-02-10")
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Accept header
+	localVarHttpHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
+	if localVarHttpHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
+	}
+	// body params
+	localVarPostBody = &body
+	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHttpResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return localVarReturnValue, localVarHttpResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
+	localVarHttpResponse.Body.Close()
+	if err != nil {
+		return localVarReturnValue, localVarHttpResponse, err
+	}
+
+	if len(localVarHttpHeaderAccepts) > 0 {
+		respType := localVarHttpResponse.Header.Values("Content-Type")
+		for _, respType := range respType {
+			for _, accept := range localVarHttpHeaderAccepts {
+				if respType == accept {
+					goto RESP_TYPE_CHECK_END
+				}
+			}
+		}
+		return localVarReturnValue, localVarHttpResponse, fmt.Errorf("Content-Type %v not accept, body: \"%v\"", respType, string(localVarBody))
+	}
+RESP_TYPE_CHECK_END:
+
+	if localVarHttpResponse.StatusCode < 300 {
+		// If we succeed, return the data, otherwise pass on to decode error.
+		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header)
+		if err == nil {
+			return localVarReturnValue, localVarHttpResponse, err
+		}
+	}
+
+	if localVarHttpResponse.StatusCode >= 300 {
+		newErr := GenericSwaggerError{
+			body:  localVarBody,
+			error: localVarHttpResponse.Status,
+		}
+		if localVarHttpResponse.StatusCode == 200 {
+			var v ByteDanceResponseSegmentationOnlineServiceEnableResp
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header)
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHttpResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHttpResponse, newErr
+		}
+		return localVarReturnValue, localVarHttpResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHttpResponse, nil
+}
+
 /*
 SegmentationApiService 上传分群文件
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -532,25 +645,25 @@ SegmentationApiService 上传分群文件
 */
 func (a *SegmentationApiService) UploadSegFile(ctx context.Context, file *os.File, tenantId int32) (ByteDanceResponseSegmentationUploadResp, *http.Response, error) {
 	var (
-		localVarHttpMethod = strings.ToUpper("Post")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
+		localVarHttpMethod  = strings.ToUpper("Post")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
 		localVarReturnValue ByteDanceResponseSegmentationUploadResp
 	)
 
 	// create path and map variables
 	localVarPath := a.client.cfg.Host + a.client.cfg.BasePath
 	localVarQueryParams := url.Values{}
-	localVarQueryParams.Add("tenantId",fmt.Sprintf("%v", tenantId))
+	localVarQueryParams.Add("tenantId", fmt.Sprintf("%v", tenantId))
 
 	localVarHeaderParams := make(map[string]string)
 
 	localVarFormParams := url.Values{}
-	localVarQueryParams.Add("Action","QueryOpenPlatformOpenApi")
-	localVarQueryParams.Add("Version","2022-12-16")
-	localVarQueryParams.Add("ApiAction","UploadSegFile")
-	localVarQueryParams.Add("ApiVersion","2023-02-10")
+	localVarQueryParams.Add("Action", "QueryOpenPlatformOpenApi")
+	localVarQueryParams.Add("Version", "2022-12-16")
+	localVarQueryParams.Add("ApiAction", "UploadSegFile")
+	localVarQueryParams.Add("ApiVersion", "2023-02-10")
 
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{"multipart/form-data"}
@@ -569,7 +682,7 @@ func (a *SegmentationApiService) UploadSegFile(ctx context.Context, file *os.Fil
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
-    localVarFile := file
+	localVarFile := file
 	if localVarFile != nil {
 		fbs, _ := ioutil.ReadAll(localVarFile)
 		localVarFileBytes = fbs
@@ -607,7 +720,7 @@ RESP_TYPE_CHECK_END:
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header);
+		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header)
 		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
@@ -615,18 +728,18 @@ RESP_TYPE_CHECK_END:
 
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
 			var v ByteDanceResponseSegmentationUploadResp
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header);
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header)
+			if err != nil {
+				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHttpResponse, newErr
 		}
 		return localVarReturnValue, localVarHttpResponse, newErr
 	}

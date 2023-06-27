@@ -22,10 +22,17 @@
  */
 package swagger
 
-type TagBasicInfo struct {
-	Id                int32  `json:"id,omitempty"`
-	Name              string `json:"name,omitempty"`
-	Status            string `json:"status,omitempty"`
-	LatestSuccessDate string `json:"LatestSuccessDate,omitempty"`
-	DataSourceId      int32  `json:"dataSourceId,omitempty"`
+type ManualLabelCreateReq struct {
+	// 标签名
+	Name string `json:"name,omitempty"`
+	// 当前标签枚举值原始值
+	LabelEntityType string       `json:"labelEntityType,omitempty"`
+	Conf            *interface{} `json:"conf,omitempty"`
+	// 项目id
+	AppId int32 `json:"appId,omitempty"`
+	// 描述
+	Descr string `json:"descr,omitempty"`
+	// 标签数据类型
+	DataTypeName    string       `json:"dataTypeName,omitempty"`
+	LabelRangeRules *interface{} `json:"labelRangeRules,omitempty"`
 }
